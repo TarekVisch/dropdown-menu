@@ -1,2 +1,2 @@
-# dropdown-menu
-Simple and elegant drop down menu
+# Dropdown Menu
+Simple and elegant drop down menu using HTML, CSS and JavaScript
