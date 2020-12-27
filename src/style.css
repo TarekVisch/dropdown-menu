@@ -63,9 +63,14 @@ nav {
   color: #ffffff;
 }
 
+.menu__item--active .menu__item__link {
+  background-color: #252529;
+  color: #bccee4;
+}
+
 .menu__sub {
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: space-between;
 }
 
@@ -99,13 +104,22 @@ nav {
   margin-bottom: 10px;
 }
 
+.menu__sub__categories__item__link {
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+  color: currentColor;
+}
+
+.menu__sub__categories__item__link:hover {
+  color: #bccee4;
+}
+
 .menu__sub__visual {
   width: calc(60% - 5px);
   position: relative;
   display: flex;
   align-items: center;
-
-  background-color: yellow;
 }
 
 .menu__sub__visual__img {

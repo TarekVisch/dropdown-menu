@@ -1,3 +1,4 @@
+// Server
 const HOST = 'server.com/';
 
 const endpoints = {
@@ -20,3 +21,25 @@ document.onclick = function () {
     document.body.innerHTML += response;
   });
 };
+
+// DOM handling
+let activeMenuItem = null;
+
+const navBar = document.getElementById('nav-bar');
+const menuItems = document.querySelectorAll('.menu__item');
+const subMenu = document.querySelector('.menu__sub');
+
+menuItems.forEach((menuItem) => {
+  menuItem.addEventListener('mouseenter', () => {
+    if (activeMenuItem) {
+      activeMenuItem.classList.remove('menu__item--active');
+    }
+    activeMenuItem = menuItem;
+    menuItem.classList.add('menu__item--active');
+    subMenu.style.display = 'flex';
+  });
+});
+
+navBar.addEventListener('mouseleave', () => {
+  subMenu.style.display = 'none';
+});
