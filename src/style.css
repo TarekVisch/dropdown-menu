@@ -11,5 +11,49 @@ html {
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  padding: 0px 40px;
+  background-color: #1d1d20;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  position: relative;
+}
+
+.menu__item {
+  color: #ffffff;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  height: 100%;
+}
+
+.menu__item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.menu__item__link {
+  text-decoration: none;
+  color: #8391a2;
+  font: inherit;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.menu__item__link:hover {
+  background-color: #252529;
+  color: #bccee4;
+}
+
+.menu__item--current .menu__item__link {
+  border-bottom: 2px solid #ffffff;
+  color: #ffffff;
 }
