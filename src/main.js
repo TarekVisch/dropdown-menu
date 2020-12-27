@@ -1,9 +1,29 @@
-// Server
+// API Library
 const HOST = 'server.com/';
 
+const getCategories = (data) => {
+  if (data.category === 'top') {
+    return [
+      'Server Catnip',
+      'Server Cat Food',
+      'Server Groomer',
+      'Server Costumes',
+    ];
+  }
+  if (data.category == 'additional') {
+    return [
+      'Server Toys',
+      'Server Cat Perch',
+      'Server Cat Towers',
+      'Server Water Fountain',
+    ];
+  }
+  return [];
+};
+
 const endpoints = {
-  '/': {
-    get: 'Hello World!',
+  '/categories': {
+    get: getCategories,
   },
 };
 
@@ -11,14 +31,27 @@ const api = {
   get: (url, data, callback) => {
     const domain = url.substring(0, url.indexOf('/'));
     const endpoint = url.substring(url.indexOf('/'), url.length);
-
-    callback(endpoints[endpoint]['get']);
+    console.log(endpoint);
+    callback(endpoints[endpoint]['get'](data));
   },
 };
 
-document.onclick = function () {
-  api.get(HOST, {}, (response) => {
-    document.body.innerHTML += response;
+// Render Data onto the sub menu
+const populateCategories = (category) => {
+  api.get(HOST + 'categories', { category }, (categories) => {
+    let newCategories = '';
+    for (const category of categories) {
+      const categoryElement = `
+        <li class="menu__sub__categories__item">
+          <a href="#" class="menu__sub__categories__item__link">${category}</a>
+        </li>
+      `;
+      newCategories += categoryElement;
+    }
+    const categoriesElement = document.querySelector(
+      `.menu__sub__categories__items--${category}`
+    );
+    categoriesElement.innerHTML = newCategories;
   });
 };
 
@@ -37,6 +70,9 @@ menuItems.forEach((menuItem) => {
     activeMenuItem = menuItem;
     menuItem.classList.add('menu__item--active');
     subMenu.style.display = 'flex';
+
+    populateCategories('top');
+    populateCategories('additional');
   });
 });
 

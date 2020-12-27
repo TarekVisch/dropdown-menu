@@ -95,7 +95,8 @@ nav {
   font-weight: 400;
 }
 
-.menu__sub__categories__items {
+.menu__sub__categories__items--top,
+.menu__sub__categories__items--additional {
   list-style: none;
   color: #8391a2;
 }
