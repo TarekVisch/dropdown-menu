@@ -1,25 +1,27 @@
 // API Library
 const HOST = 'server.com/';
 
-const getCategories = (data) => {
-  if (data.category === 'top') {
-    return [
-      'Server Catnip',
-      'Server Cat Food',
-      'Server Groomer',
-      'Server Costumes',
-    ];
+function getCategories(data) {
+  if (data.category == 'top') {
+    if (data.menuItem == 'Motors') {
+      return ['Car', 'Motorcycle', 'Plane', 'Trucks', 'Wheels'];
+    }
+    if (data.menuItem == 'Fashion') {
+      return ["Women's tops", "Men's tops", 'Jeans', 'Hats'];
+    }
+    return ['apple', 'banana', 'pear', 'orange'];
   }
   if (data.category == 'additional') {
-    return [
-      'Server Toys',
-      'Server Cat Perch',
-      'Server Cat Towers',
-      'Server Water Fountain',
-    ];
+    if (data.menuItem == 'Motors') {
+      return ['Tires', 'Windshields', 'Ski racks', 'Doors', 'Windows'];
+    }
+    if (data.menuItem == 'Fashion') {
+      return ['On sale', 'Red stuff', 'Gucci', 'New Arrivals'];
+    }
+    return ['square', 'circle', 'oval', 'diamond'];
   }
   return [];
-};
+}
 
 const endpoints = {
   '/categories': {
@@ -31,28 +33,33 @@ const api = {
   get: (url, data, callback) => {
     const domain = url.substring(0, url.indexOf('/'));
     const endpoint = url.substring(url.indexOf('/'), url.length);
-    console.log(endpoint);
+
     callback(endpoints[endpoint]['get'](data));
   },
 };
 
 // Render Data onto the sub menu
 const populateCategories = (category) => {
-  api.get(HOST + 'categories', { category }, (categories) => {
-    let newCategories = '';
-    for (const category of categories) {
-      const categoryElement = `
+  const activeMenuItemName = activeMenuItem.children[0].innerHTML;
+  api.get(
+    HOST + 'categories',
+    { category, menuItem: activeMenuItemName },
+    (categories) => {
+      let newCategories = '';
+      for (const category of categories) {
+        const categoryElement = `
         <li class="menu__sub__categories__item">
           <a href="#" class="menu__sub__categories__item__link">${category}</a>
         </li>
       `;
-      newCategories += categoryElement;
+        newCategories += categoryElement;
+      }
+      const categoriesElement = document.querySelector(
+        `.menu__sub__categories__items--${category}`
+      );
+      categoriesElement.innerHTML = newCategories;
     }
-    const categoriesElement = document.querySelector(
-      `.menu__sub__categories__items--${category}`
-    );
-    categoriesElement.innerHTML = newCategories;
-  });
+  );
 };
 
 // DOM handling
